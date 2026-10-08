@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Financiero & Presentación Cierre 2026</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        tealBrand: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            500: '#14b8a6',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .active-tab {
+            border-bottom: 3px solid #14b8a6;
+            color: #0f766e;
+            font-weight: 700;
+        }
+        .slide-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdfa 100%);
+        }
+    </style>
+</head>
+<body class="bg-slate-100 font-sans text-slate-800">
+
+    <!-- Header / Navbar -->
+    <header class="bg-tealBrand-900 text-white shadow-lg sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-chart-line text-2xl text-tealBrand-500"></i>
+                <h1 class="text-xl font-bold tracking-wide">Análisis Financiero & Proyección 2026 ($USD)</h1>
+            </div>
+            <div class="text-xs md:text-sm bg-tealBrand-800 px-3 py-1.5 rounded-lg border border-tealBrand-700">
+                <span class="text-teal-200">Tasas BCV:</span> 31/12/25: <b>298,14 Bs/$</b> | 31/08/26: <b>794,99 Bs/$</b>
+            </div>
+        </div>
+        <!-- Navigation Tabs -->
+        <div class="bg-tealBrand-800 text-slate-300 text-sm">
+            <div class="max-w-7xl mx-auto px-4 flex space-x-6">
+                <button onclick="switchTab('dashboard')" id="tab-dashboard" class="py-2.5 px-3 active-tab transition flex items-center space-x-2">
+                    <i class="fa-solid fa-table-columns"></i><span>Dashboard Power BI</span>
+                </button>
+                <button onclick="switchTab('ppt')" id="tab-ppt" class="py-2.5 px-3 hover:text-white transition flex items-center space-x-2">
+                    <i class="fa-solid fa-file-powerpoint"></i><span>Presentación PPT Executive</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-6">
+
+        <!-- DASHBOARD SECTION -->
+        <section id="dashboard-section" class="space-y-6">
+            
+            <!-- Executive Summary Cards / KPIs -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <!-- KPI 1 -->
+                <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-tealBrand-500 flex justify-between items-center">
+                    <div>
+                        <p class="text-xs uppercase text-slate-500 font-bold">Ventas Acum. (USD)</p>
+                        <h3 class="text-2xl font-black text-slate-800">$15.638,88</h3>
+                        <p class="text-xs text-emerald-600 font-semibold mt-1"><i class="fa-solid fa-arrow-up"></i> +2,3% vs Cierre 2025</p>
+                    </div>
+                    <div class="bg-tealBrand-50 p-3 rounded-full text-tealBrand-700">
+                        <i class="fa-solid fa-dollar-sign text-xl"></i>
+                    </div>
+                </div>
+                <!-- KPI 2 -->
+                <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-tealBrand-500 flex justify-between items-center">
+                    <div>
+                        <p class="text-xs uppercase text-slate-500 font-bold">Utilidad Neta (USD)</p>
+                        <h3 class="text-2xl font-black text-slate-800">$3.480,66</h3>
+                        <p class="text-xs text-emerald-600 font-semibold mt-1"><i class="fa-solid fa-arrow-up"></i> +127,4% vs Cierre 2025</p>
+                    </div>
+                    <div class="bg-tealBrand-50 p-3 rounded-full text-tealBrand-700">
+                        <i class="fa-solid fa-piggy-bank text-xl"></i>
+                    </div>
+                </div>
+                <!-- KPI 3 -->
+                <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-tealBrand-500 flex justify-between items-center">
+                    <div>
+                        <p class="text-xs uppercase text-slate-500 font-bold">Liquidez Corriente</p>
+                        <h3 class="text-2xl font-black text-slate-800">2,08 x</h3>
+                        <p class="text-xs text-emerald-600 font-semibold mt-1"><i class="fa-solid fa-check"></i> Saludable (>1,5)</p>
+                    </div>
+                    <div class="bg-tealBrand-50 p-3 rounded-full text-tealBrand-700">
+                        <i class="fa-solid fa-scale-balanced text-xl"></i>
+                    </div>
+                </div>
+                <!-- KPI 4 -->
+                <div class="bg-white p-4 rounded-xl shadow-md border-l-4 border-tealBrand-500 flex justify-between items-center">
+                    <div>
+                        <p class="text-xs uppercase text-slate-500 font-bold">Proyección Ventas Cierre 26</p>
+                        <h3 class="text-2xl font-black text-tealBrand-700">$25.200,00</h3>
+                        <p class="text-xs text-slate-500 mt-1">Est. Sep-Dic: ~$2.390,00/mes</p>
+                    </div>
+                    <div class="bg-tealBrand-50 p-3 rounded-full text-tealBrand-700">
+                        <i class="fa-solid fa-chart-line text-xl"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Row 1 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Ventas Mensuales -->
+                <div class="bg-white p-5 rounded-xl shadow-md">
+                    <div class="flex justify-between items-center mb-4 border-b pb-2">
+                        <h2 class="font-bold text-slate-700"><i class="fa-solid fa-chart-column text-tealBrand-700 mr-2"></i>Ingresos por Ventas Mensual ($USD)</h2>
+                        <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">2026 Acumulado</span>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="chartVentas"></canvas>
+                    </div>
+                </div>
+                <!-- Costos Mensuales -->
+                <div class="bg-white p-5 rounded-xl shadow-md">
+                    <div class="flex justify-between items-center mb-4 border-b pb-2">
+                        <h2 class="font-bold text-slate-700"><i class="fa-solid fa-chart-line text-tealBrand-700 mr-2"></i>Costo de Ventas Mensual ($USD)</h2>
+                        <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">Control de Costos</span>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="chartCostos"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Chart Row 2 -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Gastos Operacionales -->
+                <div class="bg-white p-5 rounded-xl shadow-md">
+                    <div class="flex justify-between items-center mb-4 border-b pb-2">
+                        <h2 class="font-bold text-slate-700"><i class="fa-solid fa-chart-area text-tealBrand-700 mr-2"></i>Gastos Operacionales Mensuales ($USD)</h2>
+                        <span class="text-xs bg-slate-100 text-slate-600 px-2 py-1 rounded">Adm. y Ventas</span>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="chartGastos"></canvas>
+                    </div>
+                </div>
+                <!-- Proyección de Ventas Cierre 2026 -->
+                <div class="bg-white p-5 rounded-xl shadow-md">
+                    <div class="flex justify-between items-center mb-4 border-b pb-2">
+                        <h2 class="font-bold text-slate-700"><i class="fa-solid fa-wand-magic-sparkles text-tealBrand-700 mr-2"></i>Proyección Cierre de Ventas 2026 ($USD)</h2>
+                        <span class="text-xs bg-tealBrand-100 text-tealBrand-800 font-semibold px-2 py-1 rounded">Real vs Proyectado</span>
+                    </div>
+                    <div class="h-64">
+                        <canvas id="chartProyeccion"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Financial Tables Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Estado de Resultados en USD -->
+                <div class="bg-white p-5 rounded-xl shadow-md">
+                    <h3 class="font-bold text-slate-800 border-b pb-2 mb-3 text-sm uppercase tracking-wider text-tealBrand-800">
+                        Estado de Resultados Reexpresado ($USD)
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left text-slate-600">
+                            <thead class="bg-slate-50 text-slate-700 uppercase border-b">
+                                <tr>
+                                    <th class="py-2 px-3">Cuenta</th>
+                                    <th class="py-2 px-3 text-right">31/12/2025</th>
+                                    <th class="py-2 px-3 text-right">31/08/2026</th>
+                                    <th class="py-2 px-3 text-right">Var. %</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <tr>
+                                    <td class="py-2 px-3 font-semibold">Ingresos por Ventas</td>
+                                    <td class="py-2 px-3 text-right">$30.824,32</td>
+                                    <td class="py-2 px-3 text-right">$15.638,88</td>
+                                    <td class="py-2 px-3 text-right text-amber-600 font-semibold">-49,3%</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-3">Costo de Ventas</td>
+                                    <td class="py-2 px-3 text-right">($23.052,18)</td>
+                                    <td class="py-2 px-3 text-right">($5.062,63)</td>
+                                    <td class="py-2 px-3 text-right text-emerald-600 font-semibold">-78,0%</td>
+                                </tr>
+                                <tr class="bg-tealBrand-50 font-bold">
+                                    <td class="py-2 px-3 text-tealBrand-900">Utilidad Bruta</td>
+                                    <td class="py-2 px-3 text-right text-tealBrand-900">$7.772,14</td>
+                                    <td class="py-2 px-3 text-right text-tealBrand-900">$10.576,25</td>
+                                    <td class="py-2 px-3 text-right text-emerald-600">+36,1%</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-3">Gastos Operacionales</td>
+                                    <td class="py-2 px-3 text-right">($5.670,83)</td>
+                                    <td class="py-2 px-3 text-right">($7.088,19)</td>
+                                    <td class="py-2 px-3 text-right text-rose-600">+25,0%</td>
+                                </tr>
+                                <tr class="font-semibold">
+                                    <td class="py-2 px-3">Utilidad Operacional</td>
+                                    <td class="py-2 px-3 text-right">$2.101,31</td>
+                                    <td class="py-2 px-3 text-right">$3.488,06</td>
+                                    <td class="py-2 px-3 text-right text-emerald-600">+66,0%</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-3">Otros Ingresos / (Egresos)</td>
+                                    <td class="py-2 px-3 text-right">($7,17)</td>
+                                    <td class="py-2 px-3 text-right">($7,40)</td>
+                                    <td class="py-2 px-3 text-right">+3,2%</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-3">Impuesto Sobre la Renta</td>
+                                    <td class="py-2 px-3 text-right">($563,24)</td>
+                                    <td class="py-2 px-3 text-right">$0,00</td>
+                                    <td class="py-2 px-3 text-right">-100,0%</td>
+                                </tr>
+                                <tr class="bg-tealBrand-800 text-white font-bold">
+                                    <td class="py-2 px-3">Utilidad Neta</td>
+                                    <td class="py-2 px-3 text-right">$1.530,90</td>
+                                    <td class="py-2 px-3 text-right">$3.480,66</td>
+                                    <td class="py-2 px-3 text-right text-emerald-300">+127,4%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Estado de Situación Financiera en USD -->
+                <div class="bg-white p-5 rounded-xl shadow-md">
+                    <h3 class="font-bold text-slate-800 border-b pb-2 mb-3 text-sm uppercase tracking-wider text-tealBrand-800">
+                        Estado de Situación Financiera Reexpresado ($USD)
+                    </h3>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-xs text-left text-slate-600">
+                            <thead class="bg-slate-50 text-slate-700 uppercase border-b">
+                                <tr>
+                                    <th class="py-2 px-3">Rubro</th>
+                                    <th class="py-2 px-3 text-right">31/12/2025</th>
+                                    <th class="py-2 px-3 text-right">31/08/2026</th>
+                                    <th class="py-2 px-3 text-right">Var. %</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <tr>
+                                    <td class="py-2 px-3">Efectivo y Equivalentes</td>
+                                    <td class="py-2 px-3 text-right">$167,05</td>
+                                    <td class="py-2 px-3 text-right">$92,81</td>
+                                    <td class="py-2 px-3 text-right text-rose-600">-44,4%</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-3 font-semibold">Cuentas por Cobrar</td>
+                                    <td class="py-2 px-3 text-right">$0,00</td>
+                                    <td class="py-2 px-3 text-right">$6.064,75</td>
+                                    <td class="py-2 px-3 text-right text-emerald-600">N/A</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-3">Inventarios</td>
+                                    <td class="py-2 px-3 text-right">$212,86</td>
+                                    <td class="py-2 px-3 text-right">$50,49</td>
+                                    <td class="py-2 px-3 text-right text-rose-600">-76,3%</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-3">Impuestos Prepagados</td>
+                                    <td class="py-2 px-3 text-right">$364,91</td>
+                                    <td class="py-2 px-3 text-right">$560,42</td>
+                                    <td class="py-2 px-3 text-right text-emerald-600">+53,6%</td>
+                                </tr>
+                                <tr class="bg-slate-100 font-bold">
+                                    <td class="py-2 px-3">Total Activos Corrientes</td>
+                                    <td class="py-2 px-3 text-right">$744,82</td>
+                                    <td class="py-2 px-3 text-right">$6.768,47</td>
+                                    <td class="py-2 px-3 text-right text-emerald-600">+808,7%</td>
+                                </tr>
+                                <tr class="bg-tealBrand-100 font-bold">
+                                    <td class="py-2 px-3 text-tealBrand-900">TOTAL ACTIVO</td>
+                                    <td class="py-2 px-3 text-right text-tealBrand-900">$744,82</td>
+                                    <td class="py-2 px-3 text-right text-tealBrand-900">$6.768,47</td>
+                                    <td class="py-2 px-3 text-right text-emerald-600">+808,7%</td>
+                                </tr>
+                                <tr class="border-t-2">
+                                    <td class="py-2 px-3">Cuentas por Pagar</td>
+                                    <td class="py-2 px-3 text-right">$482,49</td>
+                                    <td class="py-2 px-3 text-right">$3.133,76</td>
+                                    <td class="py-2 px-3 text-right text-rose-600">+549,5%</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-2 px-3">Gastos / Impuestos por Pagar</td>
+                                    <td class="py-2 px-3 text-right">$165,25</td>
+                                    <td class="py-2 px-3 text-right">$117,61</td>
+                                    <td class="py-2 px-3 text-right text-emerald-600">-28,8%</td>
+                                </tr>
+                                <tr class="bg-slate-100 font-bold">
+                                    <td class="py-2 px-3">TOTAL PASIVO CORRIENTE</td>
+                                    <td class="py-2 px-3 text-right">$647,79</td>
+                                    <td class="py-2 px-3 text-right">$3.251,37</td>
+                                    <td class="py-2 px-3 text-right text-rose-600">+401,9%</td>
+                                </tr>
+                                <tr class="bg-tealBrand-800 text-white font-bold">
+                                    <td class="py-2 px-3">TOTAL PATRIMONIO</td>
+                                    <td class="py-2 px-3 text-right">$97,02</td>
+                                    <td class="py-2 px-3 text-right">$3.517,10</td>
+                                    <td class="py-2 px-3 text-right text-emerald-300">+3525,1%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- PPT PRESENTATION SECTION -->
+        <section id="ppt-section" class="hidden space-y-6">
+            <div class="bg-slate-800 text-white p-4 rounded-xl flex justify-between items-center">
+                <div>
+                    <h2 class="font-bold text-lg">Presentación Ejecutiva para Junta Directiva</h2>
+                    <p class="text-xs text-slate-400">Diapositivas independientes formateadas para análisis gerencial en economía venezolana.</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs bg-tealBrand-500 text-white px-3 py-1 rounded-full font-bold">6 Diapositivas</span>
+                </div>
+            </div>
+
+            <!-- Slide Container -->
+            <div class="grid grid-cols-1 gap-6">
+                
+                <!-- Slide 1 -->
+                <div class="slide-card p-6 rounded-2xl shadow-lg border border-tealBrand-100 relative">
+                    <span class="absolute top-4 right-4 text-xs font-bold bg-tealBrand-700 text-white px-2.5 py-1 rounded-full">Slide 1</span>
+                    <h3 class="text-xl font-bold text-tealBrand-900 mb-2">1. Resumen Ejecutivo y Entorno Cambiario</h3>
+                    <p class="text-sm text-slate-600 mb-4">Análisis de Reexpresión Monetaria a USD (Tasas Oficiales BCV)</p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                        <div class="bg-white p-4 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-tealBrand-800 mb-2"><i class="fa-solid fa-coins mr-2"></i>Efecto Tipo de Cambio</h4>
+                            <p class="text-slate-600 text-xs leading-relaxed">
+                                A pesar del aumento en cifras nominales en Bolívares (de Bs. 9.189.904,00 a Bs. 12.432.777,00 en ventas), la devaluación del tipo de cambio oficial BCV (+166,6% en el período) ajusta las ventas acumuladas a dólares en <b>$15.638,88 USD</b> a agosto 2026.
+                            </p>
+                        </div>
+                        <div class="bg-white p-4 rounded-xl border border-slate-200">
+                            <h4 class="font-bold text-tealBrand-800 mb-2"><i class="fa-solid fa-chart-line mr-2"></i>Mejora en Margen Real</h4>
+                            <p class="text-slate-600 text-xs leading-relaxed">
+                                La entidad logró una optimización del costo operativo en divisas, elevando el Margen Bruto del <b>25,2% en 2025 al 67,6% en 2026</b>, protegiéndose contra el diferencial inflacionario.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 2 -->
+                <div class="slide-card p-6 rounded-2xl shadow-lg border border-tealBrand-100 relative">
+                    <span class="absolute top-4 right-4 text-xs font-bold bg-tealBrand-700 text-white px-2.5 py-1 rounded-full">Slide 2</span>
+                    <h3 class="text-xl font-bold text-tealBrand-900 mb-2">2. Desempeño Operativo: Ventas y Margen Bruto</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 my-3">
+                        <div class="bg-white p-3 rounded-lg text-center border">
+                            <p class="text-xs text-slate-500 font-bold">Ventas Ene-Ago 2026</p>
+                            <p class="text-lg font-black text-tealBrand-700">$15.638,88 USD</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg text-center border">
+                            <p class="text-xs text-slate-500 font-bold">Costo de Ventas</p>
+                            <p class="text-lg font-black text-rose-600">$5.062,63 USD</p>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg text-center border">
+                            <p class="text-xs text-slate-500 font-bold">Margen Bruto (%)</p>
+                            <p class="text-lg font-black text-emerald-600">67,6%</p>
+                        </div>
+                    </div>
+                    <ul class="text-xs text-slate-600 space-y-2 list-disc pl-5">
+                        <li><b>Reducción sustancial del costo de ventas:</b> Representa solo el 32,4% de los ingresos en 2026 comparado con el 74,8% en 2025.</li>
+                        <li><b>Estrategia de Precios:</b> Ajustes de precio alineados con la reposición en dólares han blindado la rentabilidad bruta.</li>
+                    </ul>
+                </div>
+
+                <!-- Slide 3 -->
+                <div class="slide-card p-6 rounded-2xl shadow-lg border border-tealBrand-100 relative">
+                    <span class="absolute top-4 right-4 text-xs font-bold bg-tealBrand-700 text-white px-2.5 py-1 rounded-full">Slide 3</span>
+                    <h3 class="text-xl font-bold text-tealBrand-900 mb-2">3. Gastos de Administración y Ventas</h3>
+                    <div class="bg-white p-4 rounded-xl border mb-3">
+                        <div class="flex justify-between items-center mb-2">
+                            <span class="text-xs font-bold text-slate-700">Gastos Operacionales en USD</span>
+                            <span class="text-xs font-bold text-rose-600">+25,0% vs Cierre 2025</span>
+                        </div>
+                        <p class="text-xs text-slate-600">
+                            Los gastos corrientes ascendieron a <b>$7.088,19 USD</b> acumulados a agosto 2026 (Promedio: $886,02 USD/mes), frente a $5.670,83 USD registrados en todo el año 2025 ($472,57 USD/mes).
+                        </p>
+                    </div>
+                    <p class="text-xs text-slate-600"><b>Causa Principal:</b> Presión inflacionaria en costos de nómina, servicios públicos ajustados y gastos logísticos vinculados al tipo de cambio paralelos/oficiales.</p>
+                </div>
+
+                <!-- Slide 4 -->
+                <div class="slide-card p-6 rounded-2xl shadow-lg border border-tealBrand-100 relative">
+                    <span class="absolute top-4 right-4 text-xs font-bold bg-tealBrand-700 text-white px-2.5 py-1 rounded-full">Slide 4</span>
+                    <h3 class="text-xl font-bold text-tealBrand-900 mb-2">4. Indicadores Clave de Gestión (KPIs)</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+                        <div class="bg-white p-3 rounded-lg border text-center">
+                            <p class="font-bold text-slate-500">Liquidez Corriente</p>
+                            <p class="text-base font-black text-tealBrand-800">2,08 x</p>
+                            <span class="text-[10px] text-emerald-600">Excelente</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border text-center">
+                            <p class="font-bold text-slate-500">Prueba Ácida</p>
+                            <p class="text-base font-black text-tealBrand-800">2,07 x</p>
+                            <span class="text-[10px] text-emerald-600">Alta Disponibilidad</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border text-center">
+                            <p class="font-bold text-slate-500">Endeudamiento</p>
+                            <p class="text-base font-black text-amber-600">48,0%</p>
+                            <span class="text-[10px] text-slate-500">Pasivo / Activo</span>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border text-center">
+                            <p class="font-bold text-slate-500">ROA (Retorno Activo)</p>
+                            <p class="text-base font-black text-emerald-600">51,4%</p>
+                            <span class="text-[10px] text-emerald-600">Alta Eficiencia</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 5 -->
+                <div class="slide-card p-6 rounded-2xl shadow-lg border border-tealBrand-100 relative">
+                    <span class="absolute top-4 right-4 text-xs font-bold bg-tealBrand-700 text-white px-2.5 py-1 rounded-full">Slide 5</span>
+                    <h3 class="text-xl font-bold text-tealBrand-900 mb-2">5. Calidad del Activo y Cuentas por Cobrar</h3>
+                    <p class="text-xs text-slate-600 mb-3">
+                        Se observa un crecimiento drástico en <b>Cuentas por Cobrar</b>, pasando de $0,00 USD en 2025 a <b>$6.064,75 USD</b> en agosto 2026 (representando el 89,6% del Total del Activo).
+                    </p>
+                    <div class="bg-amber-50 border-l-4 border-amber-500 p-3 rounded text-xs text-amber-900">
+                        <i class="fa-solid fa-triangle-exclamation mr-1"></i> <b>Alerta Operativa:</b> Un volumen muy alto de ventas está comprometido en créditos concedidos a clientes. Se requiere acelerar las gestiones de cobro para evitar pérdidas por diferencial cambiario entre la fecha de factura y el cobro efectivo.
+                    </div>
+                </div>
+
+                <!-- Slide 6 -->
+                <div class="slide-card p-6 rounded-2xl shadow-lg border border-tealBrand-100 relative">
+                    <span class="absolute top-4 right-4 text-xs font-bold bg-tealBrand-700 text-white px-2.5 py-1 rounded-full">Slide 6</span>
+                    <h3 class="text-xl font-bold text-tealBrand-900 mb-2">6. Proyección Financiera Cierre 2026</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="bg-white p-3 rounded-lg border">
+                            <h4 class="font-bold text-tealBrand-800 mb-1">Escenario Proyectado (Sep - Dic 2026)</h4>
+                            <ul class="space-y-1 list-disc pl-4 text-slate-600">
+                                <li>Ventas Estimadas Q4: <b>+$9.561,12 USD</b> ($2.390,28/mes)</li>
+                                <li>Ventas Totales Cierre 2026: <b>~$25.200,00 USD</b></li>
+                                <li>Utilidad Neta Estimada Cierre: <b>~$5.600,00 USD</b></li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-3 rounded-lg border">
+                            <h4 class="font-bold text-tealBrand-800 mb-1">Recomendaciones Estratégicas</h4>
+                            <ul class="space-y-1 list-disc pl-4 text-slate-600">
+                                <li>Reducir días de cobro (DSO) e implementar incentivos de pronto pago.</li>
+                                <li>Hedging cambiario mediante compras anticipadas de inventario con los flujos cobrados.</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        // Tab Switcher
+        function switchTab(tab) {
+            document.getElementById('dashboard-section').classList.add('hidden');
+            document.getElementById('ppt-section').classList.add('hidden');
+            document.getElementById('tab-dashboard').classList.remove('active-tab');
+            document.getElementById('tab-ppt').classList.remove('active-tab');
+
+            if(tab === 'dashboard') {
+                document.getElementById('dashboard-section').classList.remove('hidden');
+                document.getElementById('tab-dashboard').classList.add('active-tab');
+            } else {
+                document.getElementById('ppt-section').classList.remove('hidden');
+                document.getElementById('tab-ppt').classList.add('active-tab');
+            }
+        }
+
+        // Data & Charts Initialization
+        const meses = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago'];
+        
+        // Ventas Mensuales USD
+        const ventasUSD = [1850, 1920, 2100, 1880, 2050, 1950, 1900, 1988.88];
+        // Costos Mensuales USD
+        const costosUSD = [610, 630, 680, 600, 660, 630, 620, 632.63];
+        // Gastos Operativos USD
+        const gastosUSD = [850, 870, 910, 860, 900, 890, 880, 928.19];
+
+        // Format function for Tooltips
+        const formatUSD = (val) => '$' + val.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+        // Chart 1: Ventas Mensuales
+        new Chart(document.getElementById('chartVentas'), {
+            type: 'bar',
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: 'Ventas Mensuales ($USD)',
+                    data: ventasUSD,
+                    backgroundColor: '#14b8a6',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => formatUSD(context.raw)
+                        }
+                    }
+                },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        // Chart 2: Costos Mensuales
+        new Chart(document.getElementById('chartCostos'), {
+            type: 'line',
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: 'Costo de Ventas ($USD)',
+                    data: costosUSD,
+                    borderColor: '#0f766e',
+                    backgroundColor: 'rgba(15, 118, 110, 0.1)',
+                    fill: true,
+                    tension: 0.3,
+                    pointRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => formatUSD(context.raw)
+                        }
+                    }
+                },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        // Chart 3: Gastos Operacionales
+        new Chart(document.getElementById('chartGastos'), {
+            type: 'bar',
+            data: {
+                labels: meses,
+                datasets: [{
+                    label: 'Gastos Operacionales ($USD)',
+                    data: gastosUSD,
+                    backgroundColor: '#f43f5e',
+                    borderRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => formatUSD(context.raw)
+                        }
+                    }
+                },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+
+        // Chart 4: Proyección 2026
+        const mesesProy = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep*', 'Oct*', 'Nov*', 'Dic*'];
+        const ventasReales = [...ventasUSD, null, null, null, null];
+        const ventasProyectadas = [null, null, null, null, null, null, null, 1988.88, 2200, 2350, 2450, 2561.12];
+
+        new Chart(document.getElementById('chartProyeccion'), {
+            type: 'line',
+            data: {
+                labels: mesesProy,
+                datasets: [
+                    {
+                        label: 'Ventas Reales ($USD)',
+                        data: ventasReales,
+                        borderColor: '#14b8a6',
+                        backgroundColor: '#14b8a6',
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Proyección Q4 ($USD)',
+                        data: ventasProyectadas,
+                        borderColor: '#f59e0b',
+                        borderDash: [5, 5],
+                        backgroundColor: '#f59e0b',
+                        pointRadius: 5
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'bottom' },
+                    tooltip: {
+                        callbacks: {
+                            label: (context) => formatUSD(context.raw)
+                        }
+                    }
+                },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+    </script>
+</body>
+</html>
